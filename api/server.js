@@ -44,7 +44,7 @@ app.post('/register', (req, res) => {
       console.error('Registration failed: ' + err.stack);
       res.status(500).send('Registration failed');
       return;
-    }
+    }  
     console.log('User registered successfully');
     res.status(200).send('User registered successfully');
   });
@@ -146,7 +146,7 @@ app.post('/book', (req, res) => {
     if (checkErr) {
       console.error('Booking failed: ' + checkErr.stack);
       res.status(500).send('Booking failed');
-      return;
+      return;  
     }
 
     if (checkResult.rows.length === 0) {
@@ -177,6 +177,31 @@ app.post('/book', (req, res) => {
         res.status(200).send('Booking successful');
       });
     });
+  });
+});
+
+
+// Add this route in your server code (assuming it's after the /flights route)
+app.post('/searchFlights', (req, res) => {
+  const { start, dest } = req.body;
+
+  // Validate input parameters
+  if (!start || !dest) {
+    return res.status(400).json({ error: 'Invalid search parameters' });
+  }
+
+  const searchFlightsSql = `
+    SELECT * FROM flights
+    WHERE start ILIKE $1 AND dest ILIKE $2
+  `;
+
+  pool.query(searchFlightsSql, [`%${start}%`, `%${dest}%`], (err, result) => {
+    if (err) {
+      console.error('Error searching flights: ' + err.stack);
+      return res.status(500).json({ error: 'Error searching flights' });
+    }
+
+    res.json(result.rows);
   });
 });
 

@@ -45,7 +45,7 @@
 // src/App.js
 import React, { useState } from 'react';
 import './App.css';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -85,6 +85,7 @@ function Register() {
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <br />
       <button onClick={handleRegister}>Register</button>
+      <h3>Already a User? <Link to="/login">Login</Link> </h3>
     </div>
   );
 }

@@ -124,16 +124,23 @@ h1 {
 ul {
   list-style: none;
   padding: 0;
+  margin-left:27%;
 }
-
 li {
   background-color: #fff;
+  width:50%;
+ 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
-  padding: 15px;
+  margin: 25px 60px; /* Adjusted margin values */
+  padding: 10px;
   border-radius: 4px;
-  margin: 50px 170px; 
+  transition: margin 0.3s ease-in-out; /* Added a simple margin transition for animation */
 }
+
+li:hover {
+  margin: 20px 60px; /* Adjusted margin values on hover for animation effect */
+}
+
 
 button {
   background-color: #4caf50;
@@ -223,3 +230,77 @@ select {
 }
 
 /* Add more styles as needed */
+
+.profile{
+  margin-left:90%;
+}
+.link{
+  text-decoration: none; /* Remove the default underline */
+  color: #007bff; /* Set the link color to blue (you can change it to your preferred color) */
+  cursor: pointer; /* Show a pointer cursor on hover */
+}
+
+
+.profile {
+  width: 40px; /* Set a fixed width for the circle */
+  height: 40px; /* Set a fixed height for the circle */
+  border-radius: 50%; /* Make it a circle by setting border-radius to 50% */
+  background-color: grey; /* Set the background color (you can change it to your preferred color) */
+  color: #fff; /* Set the text color to white */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: 90%; /* Remove margin for spacing */
+}
+/* Add your global styles here */
+
+.link {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.profile {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+.flight-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flight-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+p {
+  margin: 8px 0;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
