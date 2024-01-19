@@ -50,26 +50,7 @@ app.post('/register', (req, res) => {
   });
 });
 
-// app.post('/login', (req, res) => {
-//   const { email, password } = req.body;
 
-//   const sql = 'SELECT * FROM register WHERE email = $1 AND password = $2';
-//   pool.query(sql, [email, password], (err, result) => {
-//     if (err) {
-//       console.error('Login failed: ' + err.stack);
-//       res.status(500).send('Login failed');
-//       return;
-//     }
-
-//     if (result.rows.length > 0) {
-//       console.log('Login successful');
-//       res.status(200).send('Login successful');
-//     } else {
-//       console.error('Invalid credentials');
-//       res.status(401).send('Invalid credentials');
-//     }
-//   });
-// });
 
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -93,6 +74,7 @@ app.post('/login', (req, res) => {
     });
   });
   
+ 
   app.get('/user/:userId', async (req, res) => {
     const userId = req.params.userId;
     try {
@@ -104,7 +86,7 @@ app.post('/login', (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
-
+  
   app.get('/bookings/:userId', async (req, res) => {
     const userId = req.params.userId;
     try {
@@ -116,7 +98,22 @@ app.post('/login', (req, res) => {
         WHERE b.Userid = $1
       `, [userId]);
   
-      const bookings = result.rows;
+      const bookings = result.rows.map((booking) => {
+        return {
+          id: booking.id,
+          userId: booking.userid,
+          flightId: booking.flightid,
+          noofbooking: booking.noofbooking,  
+          bookingdate: booking.dateofbooking,  
+          flight: {
+            name: booking.name,  
+            start: booking.start,
+            dest: booking.dest
+          }  
+        };  
+      });
+      console.log(bookings);
+
       res.json(bookings);
     } catch (error) {
       console.error('Error fetching bookings:', error);
@@ -134,19 +131,22 @@ app.get('/flights', (req, res) => {
       return;
     }
 
-    res.json(result.rows);
+    res.json(result.rows);     
   });
 });
 
+
+
 app.post('/book', (req, res) => {
-  const { userId, flightId } = req.body;
+  const { userId, flightId, bookingDate, noOfBookings } = req.body;
+
   // Check if the flight is available
   const checkAvailabilitySql = 'SELECT * FROM flights WHERE id = $1 AND seats > 0';
   pool.query(checkAvailabilitySql, [flightId], (checkErr, checkResult) => {
     if (checkErr) {
       console.error('Booking failed: ' + checkErr.stack);
       res.status(500).send('Booking failed');
-      return;  
+      return;
     }
 
     if (checkResult.rows.length === 0) {
@@ -155,9 +155,9 @@ app.post('/book', (req, res) => {
       return;
     }
 
-    // Book the flight and update available seats
-    const bookFlightSql = 'INSERT INTO bookings (userId, flightId) VALUES ($1, $2)';
-    pool.query(bookFlightSql, [userId, flightId], (bookErr, bookResult) => {
+    // Update the booking data
+    const bookFlightSql = 'INSERT INTO bookings (userId, flightId, noOfBooking, dateOfBooking) VALUES ($1, $2, $3, $4)';
+    pool.query(bookFlightSql, [userId, flightId, noOfBookings, bookingDate], (bookErr, bookResult) => {
       if (bookErr) {
         console.error('Booking failed: ' + bookErr.stack);
         res.status(500).send('Booking failed');
@@ -165,8 +165,8 @@ app.post('/book', (req, res) => {
       }
 
       // Update available seats
-      const updateSeatsSql = 'UPDATE flights SET seats = seats - 1 WHERE id = $1';
-      pool.query(updateSeatsSql, [flightId], (updateErr, updateResult) => {
+      const updateSeatsSql = 'UPDATE flights SET seats = seats - $1 WHERE id = $2';
+      pool.query(updateSeatsSql, [noOfBookings, flightId], (updateErr, updateResult) => {
         if (updateErr) {
           console.error('Failed to update seats: ' + updateErr.stack);
           res.status(500).send('Booking failed');
@@ -204,6 +204,62 @@ app.post('/searchFlights', (req, res) => {
     res.json(result.rows);
   });
 });
+
+    
+
+//admin
+app.post('/admin/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const result = await pool.query(
+      'SELECT admin_id FROM admin WHERE username = $1 AND password = $2',
+      [username, password]
+    );
+
+    if (result.rows.length > 0) {
+      const adminId = result.rows[0].admin_id;
+      res.json({ adminId });
+    } else {
+      res.status(401).json({ error: 'Invalid username or password' });
+    }
+  } catch (error) {
+    console.error('Error during admin login:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.post('/admin/add-flight', async (req, res) => {
+  const { name, start, dest, seats } = req.body;
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO flights (name, start, dest, seats) VALUES ($1, $2, $3, $4) RETURNING id',
+      [name, start, dest, seats]
+    );
+
+    const flightId = result.rows[0].id;
+    console.log(flightId)
+    res.json({ flightId });
+  } catch (error) {    
+    console.error('Error adding flight:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Remove Flight route
+app.post('/admin/remove-flight', async (req, res) => {
+  const { flightId } = req.body;
+
+  try {
+    await pool.query('DELETE FROM flights WHERE id = $1', [flightId]);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error removing flight:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }    
+});      
+
 
 app.listen(5000, () => {
   console.log('Server running on port 5000');

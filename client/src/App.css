@@ -1,50 +1,11 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 h1 {
   text-align: center;
-  color: #333;
 }
 
 label {
   display: block;
   margin-bottom: 8px;
-  color: #555;
+  color:#45A29E;
 }
 
 input {
@@ -56,24 +17,11 @@ input {
   box-sizing: border-box;
 }
 
-button {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
 
 /* Add this CSS to your component or a separate CSS file */
 
 h1 {
   text-align: center;
-  color: #333;
 }
 
 ul {
@@ -85,18 +33,7 @@ li {
   margin-bottom: 10px;
 }
 
-button {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
 
-button:hover {
-  background-color: #45a049;
-}
 
 /* Optional: Style for the link */
 
@@ -105,7 +42,9 @@ button:hover {
 
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4; */
+  background-color: #1F2833;
+  color:#45A29E;
   margin: 0;
   padding: 0;
 }
@@ -118,7 +57,6 @@ body {
 
 h1 {
   text-align: center;
-  color: #333;
 }
 
 ul {
@@ -142,25 +80,11 @@ li:hover {
 }
 
 
-button {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  display: block;
-  margin: 20px auto;
-  font-size: 16px;
-}
 
-button:hover {
-  background-color: #45a049;
-}
 
 input,
 select {
-  width: 50%;
+  width: 30%;
   padding: 10px;
   margin-bottom: 16px;
   border: 1px solid #ccc;
@@ -170,24 +94,23 @@ select {
 
 /* Profile Container */
 .cont {
-  max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f5f5f5;
+  /* padding: 20px; */
+  
+  /* background-color: #CED4DA; */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
 
 /* Profile Title */
 .profile-title {
-  color: #333;
+  color: #45A29E;
   font-size: 28px;
   margin-bottom: 10px;
 }
 
 /* Profile Email */
 .profile-email {
-  color: #555;
   font-size: 16px;
   margin: 10px 0;
 }
@@ -195,36 +118,22 @@ select {
 /* Booking Section */
 .booking-section {
   margin-top: 20px;
-  color: #333;
+  
   font-size: 24px;
 }
 
-/* Booking List */
-.booking-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-/* Booking Item */
-.booking-item {
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.booking-list{
+  display:flex;
 }
 
 /* Flight Name */
 .flight-name {
-  color: #3498db;
   font-size: 20px;
   margin-bottom: 5px;
 }
 
 /* Origin and Destination */
 .origin-destination {
-  color: #555;
   font-size: 16px;
   margin-bottom: 10px;
 }
@@ -245,8 +154,8 @@ select {
   width: 40px; /* Set a fixed width for the circle */
   height: 40px; /* Set a fixed height for the circle */
   border-radius: 50%; /* Make it a circle by setting border-radius to 50% */
-  background-color: grey; /* Set the background color (you can change it to your preferred color) */
-  color: #fff; /* Set the text color to white */
+  background-color:#007bff; /* Set the background color (you can change it to your preferred color) */
+  color: black; /* Set the text color to white */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -259,11 +168,25 @@ select {
   text-decoration: none;
   color: #007bff;
 }
-
 .profile {
+  position: fixed;
   font-size: 24px;
-  margin-right: 10px;
+  color: white;
+  margin-top: 34%;
+  margin-left: 95%;
+  background-color: #45A29E;
+  padding: 10px; /* Add some padding for better hover effect */
+  border-radius: 50%; /* Optional: Add a circular border */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.profile:hover {
+  background-color: #fff;
+  color:#45A29E; /* Change to your desired hover color */
+  transform: scale(1.1); /* Optional: Add a scaling effect on hover */
+}
+
 
 h1 {
   font-size: 28px;
@@ -281,11 +204,22 @@ h1 {
   margin: 16px;
   width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-h2 {
-  font-size: 20px;
+.flight-card:hover {
+  background-color: #f4f4f4; 
+  transform: scale(1.05);
+  color: #1F2833;
+  h2{
+    color: #1F2833;
+  }
+}
+
+.flight-card h2 {
+  font-size: 23px;
   margin-bottom: 8px;
+ 
 }
 
 p {
@@ -293,14 +227,278 @@ p {
 }
 
 button {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #66FCF1;
+  color: #0B0C10;
   border: none;
   padding: 8px 16px;
   cursor: pointer;
   border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #45A29E;
+  color: #fff;
+}
+
+
+.admin{
+  display: flex;
+
+}
+.left{
+  width: 100%;
+
+}
+.right{
+  width: 100%;
+  margin-left: -20%;
+}
+.list{
+  background-color: #fff;
+  width:100%;
+ 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 25px 60px; /* Adjusted margin values */
+  padding: 10px;
+  border-radius: 4px;
+  transition: margin 0.3s ease-in-out;
+}
+
+.inner{
+  
+  background-color:#1F2833;
+}
+
+.App{
+  margin-top:7%;
+  text-align: center;
+  background-color: #1F2833;
+}
+flight-list{
+  margin-top: -10%;
+}
+
+/* Add styles for the container holding the booking items */
+.booking-list {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+
+Style each booking item */
+.booking-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 10px;
+  background-color: #fff;
+  width: calc(33.33% - 32px);
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+/* Add hover effect to booking items */
+.booking-item:hover {
+  transform: scale(1.05);
+}
+
+/* Additional styles to improve spacing */
+.sep {
+  width: 100%;
+  display:flex;
+  box-sizing: border-box;
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 768px) {
+  .booking-item {
+    width: calc(50% - 32px);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .booking-item {
+    width: 100%;
+  }
+}
+
+/* Navbar.css */
+
+.navbar {
+  background-color: #283845;
+  color: white;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar:hover {
+  background-color: #1F2833;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Add this CSS to your existing styles for .lin */
+
+.lin {
+  color:  #ffffff;
+  font: normal 36px 'Open Sans', cursive;
+  margin: 0;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+}
+.lin span{
+  color:  lightseagreen;
+
+}
+.footer-distributed h3{
+  color:  #ffffff;
+  font: normal 36px 'Open Sans', cursive;
+  margin: 0;
+}
+
+.footer-distributed h3 span{
+  color:  lightseagreen;
+}
+.lin:hover {
+  transform: scale(1.1); /* Add a scaling effect on hover */
+  color: #66fcf1; /* Change color on hover */
+  box-shadow: 0 0 0px rgba(102, 252, 241, 0.8); /* Add a subtle box shadow on hover */
+}
+
+
+.nav-links a {
+  color: white;
+  margin-left: 40px;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #66FCF1;
+}
+
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #66FCF1;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+/* LoadingSpinner.css */
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.funny{
+  margin-bottom: 10%;
+}
+
+.spinner {
+  border: 4px solid rgba(102, 252, 241, 0.3); /* #66FCF1 with reduced opacity */
+  /* border-radius: 50%; */
+  border-top: 4px solid #66FCF1;
+  width: 40px;
+  height: 40px;
+ 
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.book{
+  display:flex;
+  justify-content: space-between;
+}
+.bookleft{
+  width: 100%;
+}
+.bookright{
+  width: 100%;
+  margin-left: -20%;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.social-icons {
+  margin-top: 20px;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin: 0 10px;
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.additional-sections {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.map-container {
+  height: 200px; /* Set an appropriate height for your map */
+  width: 80%; /* Set an appropriate width for your map */
+  background-color: #555; /* Placeholder color for map */
+  margin-top: 20px;
+}
+
+.weather-check {
+  margin-top: 20px;
 }

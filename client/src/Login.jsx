@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Navbar from './components/Navbar';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Login = () => {
 
   return (
     <div>
+      <Navbar />
       <h1>Login</h1>
       <label>Email:</label>
       <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -39,6 +41,7 @@ const Login = () => {
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       <br />
       <button onClick={handleLogin}>Login</button>
+      <p>Not a User? <Link to="/register" class="link">Register</Link></p>
     </div>
   );
 };
