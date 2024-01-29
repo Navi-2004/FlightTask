@@ -3,6 +3,8 @@ const cors = require('cors');
 const pg = require('pg');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const Stripe = require('stripe')('sk_test_51OdlCuSFfBij0ekrEl6R5SjqmI9pTER7Fy0KhVRhyyNDkzWwzb51kQvHJ56skJJokZ2VQal4h6cMm4g5jzq0l1Cl00qG2dVDAL');
+
 const app = express();
 
 app.use(cors());
@@ -34,7 +36,7 @@ pool.connect((err) => {
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
-
+   
 app.post('/register', (req, res) => {
   const { username, email, password } = req.body;
 
@@ -308,7 +310,7 @@ app.post('/admin/add-flight', async (req, res) => {
 
 // Remove Flight route
 app.post('/admin/remove-flight', async (req, res) => {
-  const { flightId } = req.body;
+  const { flightId } = req.body;    
 
   try {
     await pool.query('DELETE FROM flights WHERE id = $1', [flightId]);
@@ -317,7 +319,7 @@ app.post('/admin/remove-flight', async (req, res) => {
     console.error('Error removing flight:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }    
-});      
+});         
 // app.post('/admin/remove-flight', async (req, res) => {
 //   const { flightId } = req.body;
 
@@ -335,7 +337,33 @@ app.post('/admin/remove-flight', async (req, res) => {
 //   }
 // });
 
+app.post('/payment', async (req, res) => {
+  let status, error;
+  const { token, amount } = req.body;
 
+  try {
+    // Create a source using the token
+    const source = await Stripe.sources.create({
+      type: 'card',
+      token: token.id,
+    });
+
+    // Now use the created source to create a paymentIntent
+    const paymentIntent = await Stripe.paymentIntents.create({
+      amount,
+      currency: 'inr',
+      source: source.id,
+    });         
+
+    console.log('Payment successful');
+    status = 'success';
+  } catch (error) {
+    console.log(error);   
+    status = 'Failure';   
+  }
+
+  res.json({ error, status });
+});
 
 app.listen(5000, () => {
   console.log('Server running on port 5000');

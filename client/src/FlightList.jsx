@@ -3,6 +3,7 @@
   import { Link } from 'react-router-dom';
   import Navbar from './components/Navbar';
   import Loading from './components/Loading';
+  import axios from './axiosConfig';
 
   const FlightList = () => {
     const [flights, setFlights] = useState([]);

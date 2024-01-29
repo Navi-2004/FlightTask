@@ -60,7 +60,7 @@ const Profile = () => {
             <p>Destination: {booking.flight.dest}</p>
             <p>Date of Booking: {formatDate(booking.bookingdate)}</p>
             <p>Number of Bookings: {booking.noofbooking}</p>
-            <p>Price: {booking.totalprice}</p>
+            <p>Price: {booking.totalpxrice}</p>
 
             {/* Add more booking details as needed */}
           </li>
