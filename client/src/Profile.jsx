@@ -27,6 +27,7 @@ const Profile = () => {
         const bookingsResponse = await fetch(`http://localhost:5000/bookings/${userId}`);
         const bookingsData = await bookingsResponse.json();
         setBookings(bookingsData);
+        console.log(bookingsData);
         setLoading(false);
         console.log(bookingsData);
       } catch (error) {
@@ -59,6 +60,8 @@ const Profile = () => {
             <p>Destination: {booking.flight.dest}</p>
             <p>Date of Booking: {formatDate(booking.bookingdate)}</p>
             <p>Number of Bookings: {booking.noofbooking}</p>
+            <p>Price: {booking.totalprice}</p>
+
             {/* Add more booking details as needed */}
           </li>
         ))}

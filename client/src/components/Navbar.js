@@ -35,7 +35,7 @@ const Navbar = () => {
           ) : (
             <>
               <Link to="/login">Login</Link>
-              <Link to="/signup" style={{marginRight:2+"em"}}>Sign Up</Link>
+              <Link to="/register" style={{marginRight:2+"em"}}>Sign Up</Link>
             </>
           )}
         </div>

@@ -104,10 +104,11 @@ app.post('/login', (req, res) => {
           userId: booking.userid,
           flightId: booking.flightid,
           noofbooking: booking.noofbooking,  
-          bookingdate: booking.dateofbooking,  
+          bookingdate: booking.dateofbooking, 
+          totalprice: booking.totalprice, 
           flight: {
             name: booking.name,  
-            start: booking.start,
+            start: booking.start,     
             dest: booking.dest
           }  
         };  
@@ -131,18 +132,61 @@ app.get('/flights', (req, res) => {
       return;
     }
 
-    res.json(result.rows);     
+    res.json(result.rows);         
   });
 });
 
 
 
+// app.post('/book', (req, res) => {
+//   const { userId, flightId, bookingDate, noOfBookings } = req.body;
+
+//   // Check if the flight is available
+//   const checkAvailabilitySql = 'SELECT * FROM flights WHERE id = $1 AND seats > 0';
+//   pool.query(checkAvailabilitySql, [flightId], (checkErr, checkResult) => {
+//     if (checkErr) {
+//       console.error('Booking failed: ' + checkErr.stack);
+//       res.status(500).send('Booking failed');
+//       return;
+//     }
+
+//     if (checkResult.rows.length === 0) {
+//       console.error('Flight not available or does not exist');
+//       res.status(400).send('Flight not available or does not exist');
+//       return;
+//     }
+
+//     // Update the booking data
+//     const bookFlightSql = 'INSERT INTO bookings (userId, flightId, noOfBooking, dateOfBooking) VALUES ($1, $2, $3, $4)';
+//     pool.query(bookFlightSql, [userId, flightId, noOfBookings, bookingDate], (bookErr, bookResult) => {
+//       if (bookErr) {
+//         console.error('Booking failed: ' + bookErr.stack);
+//         res.status(500).send('Booking failed');
+//         return;
+//       }
+
+//       // Update available seats
+//       const updateSeatsSql = 'UPDATE flights SET seats = seats - $1 WHERE id = $2';
+//       pool.query(updateSeatsSql, [noOfBookings, flightId], (updateErr, updateResult) => {
+//         if (updateErr) {
+//           console.error('Failed to update seats: ' + updateErr.stack);
+//           res.status(500).send('Booking failed');
+//           return;
+//         }
+
+//         console.log('Booking successful');
+//         res.status(200).send('Booking successful');
+//       });
+//     });
+//   });
+// });
+
 app.post('/book', (req, res) => {
   const { userId, flightId, bookingDate, noOfBookings } = req.body;
 
   // Check if the flight is available
-  const checkAvailabilitySql = 'SELECT * FROM flights WHERE id = $1 AND seats > 0';
-  pool.query(checkAvailabilitySql, [flightId], (checkErr, checkResult) => {
+  const checkAvailabilitySql = 'SELECT * FROM flights WHERE id = $1 AND seats >= $2';
+  pool.query(checkAvailabilitySql, [flightId, noOfBookings], (checkErr, checkResult) => {
     if (checkErr) {
       console.error('Booking failed: ' + checkErr.stack);
       res.status(500).send('Booking failed');
@@ -155,26 +199,41 @@ app.post('/book', (req, res) => {
       return;
     }
 
-    // Update the booking data
-    const bookFlightSql = 'INSERT INTO bookings (userId, flightId, noOfBooking, dateOfBooking) VALUES ($1, $2, $3, $4)';
-    pool.query(bookFlightSql, [userId, flightId, noOfBookings, bookingDate], (bookErr, bookResult) => {
-      if (bookErr) {
-        console.error('Booking failed: ' + bookErr.stack);
+    // Retrieve the flight price
+    const flightPriceSql = 'SELECT price FROM flights WHERE id = $1';
+    pool.query(flightPriceSql, [flightId], (priceErr, priceResult) => {
+      if (priceErr) {
+        console.error('Failed to retrieve flight price: ' + priceErr.stack);
         res.status(500).send('Booking failed');
         return;
       }
 
-      // Update available seats
-      const updateSeatsSql = 'UPDATE flights SET seats = seats - $1 WHERE id = $2';
-      pool.query(updateSeatsSql, [noOfBookings, flightId], (updateErr, updateResult) => {
-        if (updateErr) {
-          console.error('Failed to update seats: ' + updateErr.stack);
+      const flightPrice = priceResult.rows[0].price;
+
+      // Calculate total price
+      const totalPrice = flightPrice * noOfBookings;
+
+      // Update the booking data with total price
+      const bookFlightSql = 'INSERT INTO bookings (userId, flightId, noOfBooking, dateOfBooking, totalPrice) VALUES ($1, $2, $3, $4, $5)';
+      pool.query(bookFlightSql, [userId, flightId, noOfBookings, bookingDate, totalPrice], (bookErr, bookResult) => {
+        if (bookErr) {
+          console.error('Booking failed: ' + bookErr.stack);
           res.status(500).send('Booking failed');
           return;
         }
 
-        console.log('Booking successful');
-        res.status(200).send('Booking successful');
+        // Update available seats
+        const updateSeatsSql = 'UPDATE flights SET seats = seats - $1 WHERE id = $2';
+        pool.query(updateSeatsSql, [noOfBookings, flightId], (updateErr, updateResult) => {
+          if (updateErr) {
+            console.error('Failed to update seats: ' + updateErr.stack);
+            res.status(500).send('Booking failed');
+            return;
+          }
+
+          console.log('Booking successful');
+          res.status(200).send('Booking successful');
+        });
       });
     });
   });
@@ -230,12 +289,12 @@ app.post('/admin/login', async (req, res) => {
 });
 
 app.post('/admin/add-flight', async (req, res) => {
-  const { name, start, dest, seats } = req.body;
+  const { name, start, dest, seats,price } = req.body;
 
   try {
     const result = await pool.query(
-      'INSERT INTO flights (name, start, dest, seats) VALUES ($1, $2, $3, $4) RETURNING id',
-      [name, start, dest, seats]
+      'INSERT INTO flights (name, start, dest, seats , price) VALUES ($1, $2, $3, $4,$5) RETURNING id',
+      [name, start, dest, seats,price]
     );
 
     const flightId = result.rows[0].id;
@@ -259,6 +318,23 @@ app.post('/admin/remove-flight', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }    
 });      
+// app.post('/admin/remove-flight', async (req, res) => {
+//   const { flightId } = req.body;
+
+//   try {
+//     // Update related bookings before deleting the flight
+//     await pool.query('UPDATE bookings SET id = NULL WHERE id = $1', [flightId]);
+
+//     // Delete the flight
+//     await pool.query('DELETE FROM flights WHERE id = $1', [flightId]);
+
+//     res.json({ success: true });
+//   } catch (error) {
+//     console.error('Error removing flight:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
 
 
 app.listen(5000, () => {

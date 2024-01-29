@@ -9,6 +9,8 @@ import AdminLogin from './AdminLogin';
 import AdminDashboard from './AdminDashboard';
 import HomeScreen from './pages/HomeScreen';
 import axios from 'axios';
+import BookingDateForm from './components/BookingDateForm';
+import Stripe from './components/Stripe';
 axios.defaults.baseURL = 'http://localhost:5000';
 
 
@@ -25,6 +27,8 @@ function App() {
         <Route path="/profile/:userId" element={<Profile/>} />
         <Route path='/admin/login' element={<AdminLogin />} />
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
+        <Route path='/booking/date' element={<BookingDateForm />} />
+        <Route path='/stripe' element={<Stripe />} />
 
       </Routes>
       </BrowserRouter>

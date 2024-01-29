@@ -7,7 +7,7 @@ import Loading from './components/Loading';
 const Booking = () => {
   const [flightId, setFlightId] = useState('');
   const [noOfBookings, setNoOfBookings] = useState(1); // Default to 1 booking
-  const [bookingDate, setBookingDate] = useState(new Date().toISOString().split('T')[0]); // Default to today
+  // const [bookingDate, setBookingDate] = useState(new Date().toISOString().split('T')[0]); // Default to today
   const [flights, setFlights] = useState([]);
   const [search, setSearch] = useState({ start: '', dest: '' });
   const navigate = useNavigate();
@@ -15,9 +15,10 @@ const Booking = () => {
   const [visibleBookings, setVisibleBookings] = useState(5);
   const userId=localStorage.getItem('userId');
   const [isLoggedin, setIsLoggedin] = useState(false);
+  const bookingDate = localStorage.getItem('bookingDate');
 
   const handleSeeMore = () => {
-    setVisibleBookings(visibleBookings + 5);
+    setVisibleBookings(visibleBookings + 5);  
   }
  useEffect(()=>{
     if (localStorage.getItem('userId')) {
@@ -132,7 +133,7 @@ const Booking = () => {
       <input type="number" value={noOfBookings} onChange={(e) => setNoOfBookings(e.target.value)} min="1" />
       <br />
       <label>Booking Date:</label>
-      <input type="date" value={bookingDate} onChange={(e) => setBookingDate(e.target.value)} />
+      <input type="date" value={bookingDate}  />
       <br />
       
       <button onClick={ isLoggedin? handleBook: login} >Book</button>

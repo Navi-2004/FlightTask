@@ -8,6 +8,7 @@ const AdminDashboard = () => {
     start: '',
     dest: '',
     seats: 0,
+    price: 0,
   });
   const [flights, setFlights] = useState([]);
 
@@ -34,10 +35,12 @@ const AdminDashboard = () => {
         start: '',
         dest: '',
         seats: 0,
+        price: 0,
       });
       fetchFlights();
       alert("Flight Added Successfully")
     } catch (error) {
+      
       console.error('Error adding flight:', error.response.data);
     }
   };
@@ -50,6 +53,7 @@ const AdminDashboard = () => {
       fetchFlights();
       alert("Flight Removed Successfully")
     } catch (error) {
+      alert("Flight cannot be removed because the flight is booked")
       console.error('Error removing flight:', error.response.data);
     }
   };
@@ -86,6 +90,13 @@ const AdminDashboard = () => {
           value={flightData.seats}
           onChange={(e) => setFlightData({ ...flightData, seats: parseInt(e.target.value, 10) })}
         />
+          <label>Price:</label>
+
+        <input
+          type="number"
+          value={flightData.price}
+          onChange={(e) => setFlightData({ ...flightData, price: parseInt(e.target.value, 10) })}
+        />
         </div>
         <button onClick={handleAddFlight}>Add Flight</button>
 
@@ -99,6 +110,7 @@ const AdminDashboard = () => {
           {flights.map((flight) => (
             <li key={flight.id}>
               {flight.name} - {flight.start} to {flight.dest} ({flight.seats} seats)
+              <div style={{color:"black"}}>Price:{flight.price}</div>
               <div>
               <button onClick={() => handleRemoveFlight(flight.id)}>Remove</button>
 
