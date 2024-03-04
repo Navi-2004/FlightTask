@@ -8,9 +8,9 @@ import Profile from './Profile';
 import AdminLogin from './AdminLogin';
 import AdminDashboard from './AdminDashboard';
 import HomeScreen from './pages/HomeScreen';
-import axios from 'axios';
 import BookingDateForm from './components/BookingDateForm';
-axios.defaults.baseURL = 'http://localhost:5000';
+import Weather from './pages/Weather';
+// axios.defaults.baseURL = 'http://localhost:5000';
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
         <Route path='/admin/login' element={<AdminLogin />} />
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
         <Route path='/booking/date' element={<BookingDateForm />} />
-
+        <Route path="/weather" element={<Weather />}   />
       </Routes>
       </BrowserRouter>
 

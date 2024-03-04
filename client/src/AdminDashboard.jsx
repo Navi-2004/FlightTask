@@ -1,6 +1,6 @@
 // AdminDashboard.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from './axiosConfig';
 
 const AdminDashboard = () => {
   const [flightData, setFlightData] = useState({
@@ -19,17 +19,16 @@ const AdminDashboard = () => {
 
   const fetchFlights = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/flights');
+      const response = await axios.get('/flights');
       setFlights(response.data);
     } catch (error) {
-      console.error('Error fetching flights:', error.response.data);
+      console.error('Error fetching flights:', error);
     }
   };
 
   const handleAddFlight = async () => {
     try {
-      await axios.post('http://localhost:5000/admin/add-flight', flightData);
-      // Clear the form and fetch updated flights
+      await axios.post('/admin/add-flight', flightData);
       setFlightData({
         name: '',
         start: '',
@@ -41,20 +40,20 @@ const AdminDashboard = () => {
       alert("Flight Added Successfully")
     } catch (error) {
       
-      console.error('Error adding flight:', error.response.data);
+      console.error('Error adding flight:', error);
     }
   };
 
   const handleRemoveFlight = async (flightIdToRemove) => {
     try {
-      await axios.post('http://localhost:5000/admin/remove-flight', {
+      await axios.post('/admin/remove-flight', {
         flightId: flightIdToRemove,
       });
       fetchFlights();
       alert("Flight Removed Successfully")
     } catch (error) {
       alert("Flight cannot be removed because the flight is booked")
-      console.error('Error removing flight:', error.response.data);
+      console.error('Error removing flight:', error);
     }
   };
 

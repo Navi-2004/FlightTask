@@ -115,7 +115,6 @@ app.post('/login', (req, res) => {
           }  
         };  
       });
-      console.log(bookings);
 
       res.json(bookings);
     } catch (error) {
@@ -172,17 +171,7 @@ app.get('/flights', (req, res) => {
 //       pool.query(updateSeatsSql, [noOfBookings, flightId], (updateErr, updateResult) => {
 //         if (updateErr) {
 //           console.error('Failed to update seats: ' + updateErr.stack);
-//           res.status(500).send('Booking failed');
-//           return;
-//         }
-
-//         console.log('Booking successful');
-//         res.status(200).send('Booking successful');
-//       });
-//     });
-//   });
-// });
-
+// 
 app.post('/book', (req, res) => {
   const { userId, flightId, bookingDate, noOfBookings } = req.body;
 
@@ -271,6 +260,7 @@ app.post('/searchFlights', (req, res) => {
 //admin
 app.post('/admin/login', async (req, res) => {
   const { username, password } = req.body;
+  console.log(username, password);
 
   try {
     const result = await pool.query(

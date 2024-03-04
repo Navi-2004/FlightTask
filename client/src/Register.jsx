@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import axios from './axiosConfig'
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -10,24 +11,29 @@ function Register() {
   const Navigate=useNavigate();
 
   const handleRegister = async () => {
-    const response = await fetch('http://localhost:5000/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, email, password }),
-    });
-
-    if (response.ok) {
-      console.log('Registration successful');
-        alert('Registration successful')
-        Navigate('/login')
-
-    } else {
-      console.error('Registration failed');
+    try {
+      const response = await axios.post('/register', {
+        username,
+        email,
+        password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      if (response.status === 200) {
+        console.log('Registration successful');
+        alert('Registration successful');
+        Navigate('/login');
+      } else {
+        console.error('Registration failed');
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+      alert('Registration failed');
     }
   };
-
   return (
     <div className="App">
       <Navbar />

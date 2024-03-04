@@ -25,8 +25,11 @@ const Navbar = () => {
         <div className="brand">
           <Link to="/" className='lin'>Aero<span>Book</span></Link>
         </div>
+        
+
         <div className="nav-links">
           <Link to="/booking">Book Flights</Link>
+          <Link to="/weather">WeatherSense</Link>
           <Link to="/flight" style={{marginRight:1+"em"}}>View Flights</Link>
           {isLoggedIn ? (
             <>
@@ -39,6 +42,7 @@ const Navbar = () => {
             </>
           )}
         </div>
+
       </div>
     </nav>
   );

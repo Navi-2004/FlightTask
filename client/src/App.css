@@ -122,9 +122,9 @@ select {
   font-size: 24px;
 }
 
-.booking-list{
+/* .booking-list{
   display:flex;
-}
+} */
 
 /* Flight Name */
 .flight-name {
@@ -192,7 +192,7 @@ h1 {
   font-size: 28px;
 }
 
-.flight-cards {
+/* .flight-cards {
   display: flex;
   flex-wrap: wrap;
 }
@@ -220,6 +220,61 @@ h1 {
   font-size: 23px;
   margin-bottom: 8px;
  
+} */
+
+.flight-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flight-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.flight-card:hover {
+  background-color: #f4f4f4; 
+  transform: scale(1.05);
+  h2{
+    color: #1F2833;
+  }
+}
+
+.flight-card h2 {
+  font-size: 23px;
+  margin-bottom: 8px;
+  color: #f4f4f4;
+}
+
+.flight-card::before{
+  content: "";
+  display: block;
+  width: 30px; /* Adjust the size of the flight image */
+  height: 30px; /* Adjust the size of the flight image */
+  background-image: url("../public/images/airplane.gif"); 
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 10px; /* Adjust the position of the flight image */
+  left: 10px; /* Adjust the position of the flight image */
+  border-radius: 50%; /* Make the flight image round */
+  border: 1px solid #ddd;
+}
+
+.flight-card p {
+  margin-bottom: 8px;
+}
+
+.flight-card p:last-child {
+  margin-bottom: 0;
+}
+.flighthead{
+  color:#f4f4f4;
 }
 
 p {
@@ -282,8 +337,7 @@ flight-list{
 /* Add styles for the container holding the booking items */
 .booking-list {
   display: flex;
-  flex-wrap: wrap;
-
+   flex-wrap: wrap;
 }
 
 
@@ -501,4 +555,277 @@ footer {
 
 .weather-check {
   margin-top: 20px;
+}
+
+.profile-container {
+  display: flex;
+  margin: 0 auto;
+  padding: 20px;
+
+}
+.recent-bookings-title{
+  margin-top: 20px;
+  color: #1F2833;
+  font-size: 24px;
+}
+
+.profile-section {
+  flex: 1;
+  /* max-width: 500px; */
+  margin-left: 10%;
+  max-width:300px;
+
+  position: relative;
+}
+
+.profile-card {
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  margin-bottom: 20px;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px); /* Add translation on hover for a lift effect */
+}
+
+.profile-title {
+  margin-top: 0;
+  color:#1F2833;
+  font-style:italic;
+}
+
+.profile-email {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #1F2833; /* Add transition for smooth hover effect */
+
+}.profile-email {
+  margin-bottom: 10px;
+  border-bottom: 3px solid #1F2833;
+  margin-bottom: -4px; /* Add 1px space before the line */
+
+  transition: border-bottom 0.3s ease; /* Add transition for smooth hover effect */
+}
+
+
+.profile-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #45A29E;
+  color: #fff;
+  display: flex;
+margin-left: 40%;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  top: -25px; /* Position the profile image above the profile card */
+  left: 20px; /* Adjust as needed */
+  transition: background-color 0.3s ease; /* Add transition for color change on hover */
+}
+
+.profile-image:hover {
+  background-color: #999; /* Change background color on hover */
+}
+
+
+.booking-section {
+ display: flex;
+ 
+  padding-left: 20px;
+  margin: 0 auto;
+
+}
+
+
+
+.profile-title {
+  margin-top: 0;
+}
+
+.profile-email {
+  margin-bottom: 0;
+}
+.profileright{
+  width:70%;
+}
+
+.booking-title {
+  margin-top: 0;
+}
+
+.booking-list {
+  list-style-type: none;
+  padding: 0;
+  margin-left: 23%;
+  display:flex;
+}
+
+.booking-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.see-more-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.see-more-button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+.app-container {
+  display: flex;
+  margin-right:20%;
+ 
+}
+
+.app {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 400px;
+  height:400px;
+  margin-top: 80px;
+}
+.weather{
+  width:100px;
+  height:100px;
+  border-radius:30%;
+  margin-right:35%;
+}
+
+.app-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.search-button {
+ 
+  border: none;
+  border-radius: 0 5px 5px 0;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-top:-5%;
+  outline: none;
+}
+
+.weather-info {
+  text-align: center;
+}
+
+.location {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.temperature {
+  font-size: 48px;
+  margin: 10px 0;
+}
+
+.condition {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.description {
+  font-size: 16px;
+}
+.description {
+  font-size: 1rem;
+}
+
+ .benefits-container {
+  margin-left:10%;
+} 
+
+.benefits-container h2 {
+  text-align: center;
+  margin-left:-34%;
+  font-size: 1.5rem;
+
+
+}
+
+.benefits-container p {
+  font-size: 1rem;
+  width:50%;
+  margin-left:7%;
+  margin-bottom: 10px;
+}
+
+.benefits-container ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.benefits-container ul li {
+  font-size: 1rem;
+}
+
+.ticket {
+  background-color: #fff;
+  border: 2px solid #000;
+  padding: 20px;
+  border-radius: 10px;
+  width: 500px;
+  margin-bottom: 20px;
+  display:flex;
+}
+
+.ticket-heading {
+  margin-top: 0;
+}
+
+.ticket-details {
+  margin-bottom: 15px;
+}
+
+.ticket-details p {
+  margin: 5px 0;
+}
+
+.ticket-qr {
+  text-align: center;
+}
+
+/* Additional styling for QR code if needed */
+.imag{
+  width: 170px; /* Adjust size as needed */
+  height: 170px;
+  margin-top:30px;
+  margin-left:40px; /* Adjust size as needed */
+}
+
+.booking-list li{
+  width: 60%;
+  height:0%;
 }

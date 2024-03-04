@@ -1,6 +1,6 @@
 // AdminLogin.js
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from './axiosConfig';
 import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
@@ -12,12 +12,13 @@ const AdminLogin = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/admin/login', {
+      const response = await axios.post('/admin/login', {
         username,
         password,
       });
 
       const adminId = response.data.adminId;
+      console.log(adminId);
 
       // Store the admin ID in local storage
       localStorage.setItem('adminId', adminId);
