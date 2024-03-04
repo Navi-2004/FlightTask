@@ -247,7 +247,7 @@ h1 {
 
 .flight-card h2 {
   font-size: 23px;
-  margin-bottom: 8px;
+  /* margin-bottom: 8px; */
   color: #f4f4f4;
 }
 
@@ -353,7 +353,7 @@ Style each booking item */
   transition: transform 0.3s ease;
 }
 
-/* Add hover effect to booking items */
+Add hover effect to booking items
 .booking-item:hover {
   transform: scale(1.05);
 }
