@@ -7,7 +7,11 @@ const Stripe = require('stripe')('sk_test_51OdlCuSFfBij0ekrEl6R5SjqmI9pTER7Fy0Kh
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: ['https://flight-task-if1cmbwch-navi2004s-projects.vercel.app/','http://localhost:3000']
+   // Replace 'https://example.com' with your allowed origin
+}));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
